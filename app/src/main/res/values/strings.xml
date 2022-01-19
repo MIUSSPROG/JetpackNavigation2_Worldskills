@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">JetpackNavigation2_Worldskills</string>
+    <string name="sone_title">SOME TITLE</string>
+    <string name="about">About</string>
+    <string name="box">Box</string>
+    <string name="boxSelection">Box Selection</string>
+    <string name="options">Options</string>
+    <string name="done">Done</string>
+</resources>
