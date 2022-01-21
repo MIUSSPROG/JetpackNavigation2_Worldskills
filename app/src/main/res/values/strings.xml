@@ -6,4 +6,6 @@
     <string name="boxSelection">Box Selection</string>
     <string name="options">Options</string>
     <string name="done">Done</string>
+    <string name="box_title">Box #%1$d</string>
+    <string name="empty_box">This box is empty. Try another one.</string>
 </resources>

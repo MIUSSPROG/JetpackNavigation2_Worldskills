@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.example.activitynavigation.model.Options
 import com.example.jetpacknavigation2_worldskills.R
@@ -15,6 +16,7 @@ import com.example.jetpacknavigation2_worldskills.interfaces.CustomAction
 import com.example.jetpacknavigation2_worldskills.interfaces.HasCustomAction
 import com.example.jetpacknavigation2_worldskills.interfaces.HasCustomTitle
 import com.example.jetpacknavigation2_worldskills.interfaces.navigator
+import java.lang.IllegalArgumentException
 
 class OptionsFragment : Fragment(R.layout.fragment_options), HasCustomTitle, HasCustomAction {
 
@@ -25,7 +27,9 @@ class OptionsFragment : Fragment(R.layout.fragment_options), HasCustomTitle, Has
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        options = Options.DEFAULT
+        options = savedInstanceState?.getParcelable(KEY_OPTIONS) ?:
+        arguments?.getParcelable(ARG_OPTIONS) ?:
+        throw IllegalArgumentException("Вам надо указать настройки для перехода на этот фрагмент")
     }
 
     override fun onCreateView(
@@ -52,6 +56,11 @@ class OptionsFragment : Fragment(R.layout.fragment_options), HasCustomTitle, Has
                 onConfirmPressed()
             }
         )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(KEY_OPTIONS, options)
     }
 
     private fun updateUi(){
@@ -97,5 +106,12 @@ class OptionsFragment : Fragment(R.layout.fragment_options), HasCustomTitle, Has
         override fun toString(): String {
             return optionTitle
         }
+    }
+
+    companion object{
+        private val KEY_OPTIONS = "KEY_OPTIONS"
+        private val ARG_OPTIONS = "ARG_OPTIONS"
+
+        fun createArgs(options: Options) = bundleOf(ARG_OPTIONS to options)
     }
 }

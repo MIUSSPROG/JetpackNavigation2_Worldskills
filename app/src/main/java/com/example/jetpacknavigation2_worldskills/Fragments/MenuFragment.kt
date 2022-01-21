@@ -33,7 +33,15 @@ class MenuFragment : Fragment(R.layout.fragment_menu){
 
         btnAbout.setOnClickListener{ navigator().showAboutScreen() }
         btnOptions.setOnClickListener { navigator().showOptionsScreen(options) }
+        btnOpenBox.setOnClickListener { navigator().showBoxSelectionSreen(options) }
     }.root
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(KEY_OPTIONS, options)
+
+    }
 
     companion object {
         private val KEY_OPTIONS = "OPTIONS"
